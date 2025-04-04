@@ -1,0 +1,3 @@
+wget https://alphacephei.com/vosk/models/vosk-model-fr-0.22.zip
+unzip vosk-model-fr-0.22.zip
+mv vosk-model-fr-0.22 vosk_model

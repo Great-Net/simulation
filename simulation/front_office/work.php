@@ -14,106 +14,63 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Offres d'Emploi</title>
-       <!-- Font Awesome pour les icônes -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">  
-        <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-        }
-        .offres-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 colonnes fixes */
-            gap: 15px;
-        }
-        .offre {
-            border-radius: 8px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            text-align: center;
-        }
-        .offre img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        .details {
-            margin-top: 10px;
-        }
-        .details h3 {
-            font-size: 18px;
-            margin: 10px 0;
-        }
-        .details p {
-            font-size: 14px;
-            margin: 5px 0;
-        }
-        .disponible {
-            color: green;
-            font-weight: bold;
-        }
-        .indisponible {
-            color: red;
-            font-weight: bold;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .offres-grid { grid-template-columns: repeat(3, 1fr); } /* 3 colonnes sur tablette */
-        }
-        @media (max-width: 768px) {
-            .offres-grid { grid-template-columns: repeat(2, 1fr); } /* 2 colonnes sur mobile */
-        }
-        @media (max-width: 480px) {
-            .offres-grid { grid-template-columns: repeat(1, 1fr); } /* 1 colonne sur petits écrans */
-        }
-    </style>
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="/simulation/assets/css/style.css">
+    <link rel="stylesheet" href="/simulation/assets/css/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">  
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 
 <!-- Lien vers le JS de AOS -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+
 <script>
     // Initialiser AOS
     AOS.init();
 </script>
 
+<!-- NAVBAR SECTION A AJOUTER -->
+
 <div class="container">
-    <h2 style="text-align:center">Liste des Offres d'Emploi</h2><br><br>
+    <h2 style="text-align:center; color: #1A76D1;">Liste des Offres d'Emploi</h2><br>
+
+    <hr style="border: 1px solid #1A76D1; width: 15%; margin: 0 auto;">
+<br><br>
+
+
     <div class="offres-grid" >
 
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 ?>
-                <div class="offre" data-aos="zoom-out" data-aos-duration="500" data-aos-delay="100">
-                    <?php if (!empty($row["image"])) { ?>
-                        <img src="/simulation/<?php echo $row["image"]; ?>" alt="Image de l'offre">
-                    <?php } else { ?>
-                        <img src="/simulation/uploads/default.png" alt="Image par défaut">
-                    <?php } ?>
-                    
-                    <div class="details">
-                        <h3><?php echo htmlspecialchars($row["titre"]); ?></h3>
-                        <p><strong>Entreprise :</strong> <?php echo htmlspecialchars($row["entreprise"]); ?></p>
-                        <p><strong>Localisation :</strong> <?php echo htmlspecialchars($row["localisation"]); ?></p>
-                        <p><strong>Publié le :</strong> <?php echo $row["date_publication"]; ?></p>
-                        <p class="<?php echo $row["disponible"] ? 'disponible' : 'indisponible'; ?>">
-                            <?php echo $row["disponible"] ? 'Disponible' : 'Indisponible'; ?>
-                        </p>
-                    </div>
-                </div>
+        <div class="offre w3-card-4" data-aos="zoom-out" data-aos-duration="500" data-aos-delay="100">
+            <?php if (!empty($row["image"])) { ?>
+                <img src="/simulation/<?php echo $row["image"]; ?>" alt="Image de l'offre">
+            <?php } else { ?>
+                <img src="/simulation/uploads/default.png" alt="Image par défaut">
+            <?php } ?>
+            
+            <div class="details">
+                <h3><?php echo htmlspecialchars($row["titre"]); ?></h3>
+                <p> <?php echo htmlspecialchars($row["description"]); ?></p>
+                <p><i class="fas fa-building"></i> <strong>Entreprise :</strong> <?php echo htmlspecialchars($row["entreprise"]); ?></p>
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Localisation :</strong> <?php echo htmlspecialchars($row["localisation"]); ?></p>
+                <p><i class="fas fa-calendar-day"></i> <strong>Publié le :</strong> <?php echo $row["date_publication"]; ?></p>
+                <p class="<?php echo $row["disponible"] ? 'disponible' : 'indisponible'; ?>">
+                    <i class="fas fa-check-circle"></i> <?php echo $row["disponible"] ? 'Disponible' : 'Indisponible'; ?>
+                </p>
+                <!-- Bouton Voir sur la carte -->
+                <a href="map.php?location=<?php echo urlencode($row['localisation']); ?>" class="btn btn-primary">
+                    <i class="fas fa-map-marker-alt" style="color:white"></i>sur carte
+                </a>
+            </div>
+        </div>
+
                 <?php
             }
         } else {
@@ -126,5 +83,10 @@ $result = $conn->query($sql);
     </div>
 </div>
 
+
+
+<footer>
+    <!-- FOOTER SECTION A AJOUTER -->
+</footer>
 </body>
 </html>

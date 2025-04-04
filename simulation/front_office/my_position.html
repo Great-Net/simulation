@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Carte Leaflet.js</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Feuille de style Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <!-- Script Leaflet -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
+  <script>
+    // Initialisation de la map
+    var map = L.map('map').setView([48.8566, 2.3522], 13); // Coord Paris
+
+    // Ajout de la tuile OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Ajout d’un marqueur
+    var marker = L.marker([48.8566, 2.3522]).addTo(map);
+    marker.bindPopup("<b>Cybergorad est passé par ici !</b><br>Paris, baby.").openPopup();
+  </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #1A76D1; /* Couleur principale */
+    font-size: 20px;
+}
+
+form {
+    max-width: 350px; /* Plus petit que 400px */
+    margin: 0 auto;
+    padding: 12px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    
+}
+
+label {
+    display: block;
+    font-weight: normal;
+    margin-top: 6px;
+    color: #333;
+    font-size: 13px;
+}
+
+input[type="text"],
+textarea,
+input[type="file"],
+input[type="checkbox"] {
+    width: 96%;
+    padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+   
+}
+
+input[type="checkbox"] {
+    width: auto;
+    margin-top: 8px;
+}
+
+input[type="submit"] {
+    background-color: #1A76D1; /* Couleur principale */
+    color: white;
+    padding: 6px 14px;
+    font-size: 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Bouton plein largeur */
+}
+
+input[type="submit"]:hover {
+    background-color: #155e9c; /* Couleur plus foncée au survol */
+}
+
+textarea {
+    height: 100px; /* Plus petit que 120px */
+    resize: vertical;
+}
+
+@media (max-width: 768px) {
+    form {
+        padding: 12px;
+    }
+
+    input[type="text"],
+    textarea,
+    input[type="file"],
+    input[type="submit"] {
+        font-size: 13px;
+    }
+}
