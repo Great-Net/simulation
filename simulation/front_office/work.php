@@ -41,6 +41,83 @@ $result = $conn->query($sql);
     <hr style="border: 1px solid #1A76D1; width: 15%; margin: 0 auto;">
 <br><br>
 
+<!-- === Commande vocale === -->
+<div class="status" style="background:lightgrey; color:lime; padding:10px; margin-bottom:10px; border-radius:5px;text-align:center;width:100%">
+  <span id="status" style="color:white"> 🎙️ Commande vocale inactive</span>
+  <button onclick="startVoice()" class="btn btn-sm btn-outline-light">Activer</button>
+</div>
+
+
+<script>
+  function startVoice() {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert("Ce navigateur ne supporte pas la reconnaissance vocale.");
+      return;
+    }
+
+    const recognition = new webkitSpeechRecognition();
+    recognition.lang = 'fr-FR';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    document.getElementById('status').textContent = "🎤 Écoute en cours...";
+
+    recognition.start();
+
+    recognition.onresult = function(event) {
+      const command = event.results[0][0].transcript.toLowerCase().trim();
+      document.getElementById('status').textContent = "🧠 Commande : " + command;
+      handleCommand(command);
+    };
+
+    recognition.onerror = function(event) {
+      document.getElementById('status').textContent = "❌ Erreur : " + event.error;
+    };
+
+    recognition.onend = function() {
+      document.getElementById('status').textContent += " | terminé.";
+    };
+  }
+
+  function handleCommand(cmd) {
+    // Détecte "carte ville"
+    if (cmd.startsWith("carte")) {
+      let ville = cmd.replace("carte", "").trim();
+      if (ville) {
+        window.location.href = "map.php?location=" + encodeURIComponent(ville);
+      }
+    }
+
+    // Scrolling
+    else if (cmd.includes("descends") || cmd.includes("bas")) {
+      window.scrollBy({ top: 300, behavior: "smooth" });
+    }
+    else if (cmd.includes("monte") || cmd.includes("haut")) {
+      window.scrollBy({ top: -300, behavior: "smooth" });
+    }
+
+    // Refresh
+    else if (cmd.includes("actualise") || cmd.includes("rafraîchis")) {
+      location.reload();
+    }
+      // Retour en arrière
+  else if (cmd.includes("retour") || cmd.includes("revenir")) {
+    window.history.back(); // Commande navigateur native
+  }
+
+    // Aide
+    else if (cmd.includes("aide")) {
+      alert("Commandes disponibles :\n- carte [ville]\n- monte / descends\n- actualise\n- aide");
+    }
+
+    else {
+      alert("Commande non reconnue : " + cmd);
+    }
+  }
+</script>
+
+
+
+
 
     <div class="offres-grid" >
 
